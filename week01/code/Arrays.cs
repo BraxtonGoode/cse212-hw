@@ -13,7 +13,18 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+
+        // 1. Create a new array of doubles with the size of 'length'.
+        // 2. Use a loop to iterate from 0 to length - 1.
+        // 3. For each index, calculate the multiple by multiplying the number with (index + 1).
+        double[] result = new double[length];
+        for (int i = 0; i < length; i++)
+        {
+            result[i] = number * (i + 1);
+        }
+
+
+        return result; // replace this return statement with your own
     }
 
     /// <summary>
@@ -29,5 +40,17 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // 1. Determine the length of the list.
+        // 2. Use a loop to iterate 'amount' times.
+        // 3. In each iteration, remove the last element of the list and insert it at the beginning.
+        int length = data.Count;
+        for (int i = 0; i < amount; i++)
+        {
+            int lastElement = data[length - 1];
+            data.RemoveAt(length - 1);
+            data.Insert(0, lastElement);
+        }
+
     }
 }
