@@ -1,0 +1,29 @@
+mystery 1
+-----------------
+string 1 = racecar
+stack = r,a,c,e,c,a,r
+result = "racecar"
+-------------------
+string 2 = stressed
+stack = stressed
+result = "desserts"
+-------------------
+string 3 = a nut for a jar of tuna
+stack = a nut for a jar of tuna
+result = anut fo raj a rof tun a
+-------------------
+-------------------
+Mystery 2
+-----------------
+Text 1 = 5 3 7 + *
+stack 50
+op2= 10
+op1 = 5
+res = 50
+-----------------
+Text 2 = 6 2 + 5 3 - /
+stack 4
+op2= 2
+op1 = 8
+res = 4
+

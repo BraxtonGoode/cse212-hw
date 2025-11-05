@@ -11,20 +11,63 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Add a new customer and then serve them
+        // Expected Result: The customer information should be displayed
         Console.WriteLine("Test 1");
-
-        // Defect(s) Found: 
+        var cs = new CustomerService(1);
+        cs.AddNewCustomer();
+        cs.ServeCustomer();
+        // Defect(s) Found: i need to serve the customer first then dequeue them
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: The user shall specify the maximum size of the queue
+        // Expected Result: The maximum size shall be set to 10
         Console.WriteLine("Test 2");
+        cs = new CustomerService(0);
+        Console.WriteLine($"The maximum size is set to: {cs}");
 
-        // Defect(s) Found: 
+        // Defect(s) Found: no problems found(it gets set to 10 as expected)
+
+        Console.WriteLine("=================");
+
+        // Test 3
+        // Scenario: Add multiple customers to the queue
+        // Expected Result: The maximum size shall be set to 10
+        Console.WriteLine("Test 3");
+        cs = new CustomerService(4);
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        Console.WriteLine($"Who is all queued up: {cs}");
+        cs.ServeCustomer();
+        cs.ServeCustomer();
+        Console.WriteLine($"Who is all served in order: {cs}");
+        // Defect(s) Found: no problems found
+
+        Console.WriteLine("=================");
+
+        // Test 4
+        // Scenario: Does the max queue size give an error when exceeded?
+        // Expected Result: An error message should be displayed
+        Console.WriteLine("Test 4");
+        cs = new CustomerService(2);
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        Console.WriteLine($"Current Queue: {cs}");
+
+        // Defect(s) Found: No error message was shown when max size exceeded( until fixed)
+
+        Console.WriteLine("=================");
+        // Test 5
+        // Scenario: Serve a customer when there is no customer
+        // Expected Result: An error message should be displayed
+        Console.WriteLine("Test 5");
+        cs = new CustomerService(2);
+        cs.ServeCustomer();
+
+        // Defect(s) Found: gave an error because there was no check for empty queue
 
         Console.WriteLine("=================");
 
@@ -67,7 +110,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,8 +131,13 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
+        // Verify there is a customer to serve
+        if (_queue.Count == 0) {
+            Console.WriteLine("No Customers in Queue.");
+            return;
+        }
         var customer = _queue[0];
+        _queue.RemoveAt(0);
         Console.WriteLine(customer);
     }
 
