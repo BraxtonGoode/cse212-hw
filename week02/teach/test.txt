@@ -17,8 +17,6 @@ Input 3 - (robot[id + 1].Execute(.Pass()
 Stack = all of it until the end because of missing parentheses
 Statement = False
 
-
-
 ----------------------------
 Step 5 - Testing a Customer Service Queue
 ---------------------------

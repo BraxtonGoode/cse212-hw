@@ -110,6 +110,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
+        // Change 3: fixed the check to use >= instead of >
         if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
@@ -132,10 +133,13 @@ public class CustomerService {
     /// </summary>
     private void ServeCustomer() {
         // Verify there is a customer to serve
-        if (_queue.Count == 0) {
+        // change 1: added check for empty queue
+        if (_queue.Count == 0)
+        {
             Console.WriteLine("No Customers in Queue.");
             return;
         }
+        // Change 2: Dequeue the customer
         var customer = _queue[0];
         _queue.RemoveAt(0);
         Console.WriteLine(customer);
