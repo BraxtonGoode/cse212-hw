@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 public static class SetsAndMaps
 {
@@ -19,11 +20,32 @@ public static class SetsAndMaps
     /// that there were no duplicates) and therefore should not be returned.
     /// </summary>
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
-    public static string[] FindPairs(string[] words)
-    {
-        // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+public static string[] FindPairs(string[] words)
+{
+    var wordSet = new HashSet<string>(words);
+    var seenPairs = new HashSet<string>(); 
+    var result = new List<string>();
+
+    foreach (var word in words)
+    {        
+        if (word[0] == word[1])
+            continue;
+        
+        var reversed = new string(new[] { word[1], word[0] });
+
+        if (wordSet.Contains(reversed))
+        {  
+            var pair = string.Compare(word, reversed, StringComparison.Ordinal) < 0
+                ? $"{word} & {reversed}"
+                : $"{reversed} & {word}";
+            if (seenPairs.Add(pair))
+                result.Add(pair);
+        }
     }
+
+    return result.ToArray();
+}
+
 
     /// <summary>
     /// Read a census file and summarize the degrees (education)
@@ -43,6 +65,15 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            var degree = fields[3];
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree]++;
+            }
+            else
+            {
+                degrees[degree] = 1;
+            }
         }
 
         return degrees;
@@ -65,10 +96,56 @@ public static class SetsAndMaps
     /// using the [] notation.
     /// </summary>
     public static bool IsAnagram(string word1, string word2)
-    {
-        // TODO Problem 3 - ADD YOUR CODE HERE
+{
+    var dict1 = new Dictionary<char, int>();
+    var dict2 = new Dictionary<char, int>();
+
+    foreach (var letter in word1.ToLower())
+        {
+            if (letter == ' ') 
+                continue;
+            if (dict1.ContainsKey(letter))
+            {
+                dict1[letter]++;
+            }
+            else
+            {
+                dict1[letter] = 1;
+            }
+        }
+    foreach (var letter in word2.ToLower())
+        {
+            if (letter == ' ') 
+                continue;
+            if (dict2.ContainsKey(letter))
+            {
+                dict2[letter]++;
+            }
+            else
+            {
+                dict2[letter] = 1;
+            }
+        }
+
+    if (dict1.Count != dict2.Count)
         return false;
+
+    foreach (var letterCount in dict1)
+    {
+        char letter = letterCount.Key;
+        int count1 = letterCount.Value;
+
+        if (!dict2.TryGetValue(letter, out int count2))
+            return false;
+
+        if (count1 != count2)
+            return false;
     }
+
+    return true;
+
+}
+
 
     /// <summary>
     /// This function will read JSON (Javascript Object Notation) data from the 
